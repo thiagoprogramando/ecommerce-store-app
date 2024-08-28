@@ -1,28 +1,26 @@
 @extends('layout')
 @section('content')
-  <section>
-    <div id="carouselExampleControls" class="carousel slide" data-mdb-ride="carousel" data-mdb-carousel-init>
-        <div class="carousel-inner" style="max-height: 400px !important;">
-            <div class="carousel-item active">
-                <img src="{{ asset('assets/img/banners/1.png') }}" class="d-block w-100" alt="Wild Landscape"/>
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('assets/img/banners/2.png') }}" class="d-block w-100" alt="Camera"/>
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('assets/img/banners/3.png') }}" class="d-block w-100" alt="Exotic Fruits"/>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleControls" data-mdb-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-mdb-target="#carouselExampleControls" data-mdb-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Próximo</span>
-        </button>
-    </div>
-  </section>
+  @if($banners->count() > 0)
+    <section>
+      <div id="carouselExampleControls" class="carousel slide" data-mdb-ride="carousel" data-mdb-carousel-init>
+          <div class="carousel-inner" style="max-height: 400px !important;">
+              @foreach ($banners as $key => $banner)
+                <div class="carousel-item @if($key == 0) active @endif">
+                  <img src="{{ env('APP_URL_SERVER') }}storage/{{ $banner->file }}" class="d-block w-100" alt="{{ $banner->title }}"/>
+                </div>
+              @endforeach
+          </div>
+          <button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleControls" data-mdb-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-mdb-target="#carouselExampleControls" data-mdb-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Próximo</span>
+          </button>
+      </div>
+    </section>
+  @endif
 
   <section id="search-product" class="mt-5 mb-5">
     <div class="row">

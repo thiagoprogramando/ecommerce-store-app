@@ -65,4 +65,45 @@ class UserController extends Controller {
         return redirect()->back()->with('error', 'Não foi possível encontrar os dados do Usuário!');
     }
 
+    public function address(Request $request) {
+
+        $user = User::find($request->id);
+        if($user) {
+
+            $adress = '';
+
+            if(!empty($request->postal_code)) {
+                $adress .= $request->postal_code;
+            }
+
+            if(!empty($request->address)) {
+                $adress .= ' - '.$request->address;
+            }
+
+            if(!empty($request->num)) {
+                $adress .= ', '.$request->num;
+            }
+
+            if(!empty($request->complement)) {
+                $adress .= ' '.$request->complement;
+            }
+
+            if(!empty($request->city)) {
+                $adress .= ' | '.$request->city;
+            }
+
+            if(!empty($request->state)) {
+                $adress .= ' /'.$request->state;
+            }
+
+            $user->address = $adress;
+            if($user->save()) {
+                
+                return redirect()->back()->with('success', 'Dados atualizados com sucesso!');
+            }
+
+            return redirect()->back()->with('error', 'Não foi possível encontrar os dados do Usuário!');
+        }
+    }
+
 }

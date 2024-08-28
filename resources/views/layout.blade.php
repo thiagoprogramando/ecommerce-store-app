@@ -33,7 +33,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('ecommerce') }}">Página Inicial</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('shop') }}">Produtos</a> </li>
-                    <li class="nav-item"> <a class="nav-link" href="#">Sobre</a> </li>
+                    {{-- <li class="nav-item"> <a class="nav-link" href="#">Sobre</a> </li> --}}
                 </ul>
             </div>
   
@@ -43,7 +43,7 @@
               </a>
               
               @if (Auth::check())
-                <div class="dropdown">
+                {{-- <div class="dropdown">
                   <a data-mdb-dropdown-init class="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
                     <i class="fas fa-bell"></i>
                     <span class="badge rounded-pill badge-notification bg-danger">1</span>
@@ -53,7 +53,7 @@
                     <li> <a class="dropdown-item" href="#">Another news</a> </li>
                     <li> <a class="dropdown-item" href="#">Something else here</a> </li>
                   </ul>
-                </div>
+                </div> --}}
     
                 <div class="dropdown">
                   <a data-mdb-dropdown-init class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" aria-expanded="false">
@@ -67,15 +67,15 @@
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                     <li> <a class="dropdown-item" href="{{ route('profile') }}">Meus dados</a> </li>
                     <li> <a class="dropdown-item" href="{{ route('my-orders') }}">Meus Pedidos</a> </li>
-                    <li> <a class="dropdown-item" href="#">Faq</a> </li>
+                    {{-- <li> <a class="dropdown-item" href="#">Faq</a> </li> --}}
                     <li> <a class="dropdown-item" href="{{ route('logout') }}">Sair</a> </li>
                   </ul>
                 </div>
               @else
-              <a class="text-reset me-2" href="#">
-                <a href="{{ route('register') }}" class="btn btn-link btn-rounded text-dark">Cadastre-se</a>
-                <a href="{{ route('login') }}" class="btn btn-dark btn-rounded" data-mdb-ripple-init>Acessar</a>
-              </a>
+                <a class="text-reset me-2" href="#">
+                  <a href="{{ route('register') }}" class="btn btn-link btn-rounded text-dark">Cadastre-se</a>
+                  <a href="{{ route('login') }}" class="btn btn-dark btn-rounded" data-mdb-ripple-init>Acessar</a>
+                </a>
               @endif
             </div>
           </div>
@@ -88,16 +88,13 @@
         <a class="btn btn-floating btn-dark btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true" aria-pressed="false"> <i class="fas fa-filter"></i> </a>
         <ul class="list-unstyled" style="margin-bottom: 80px; transform: translateY(368px);">
             <li>
-                <a class="btn btn-success btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-whatsapp"></i></a>
+                <a href="{{ $link->url_whatsapp }}" class="btn btn-success btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-whatsapp"></i></a>
             </li>
             <li>
-                <a class="btn btn-danger btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-instagram"></i></a>
+                <a href="{{ $link->url_instagram }}" class="btn btn-danger btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-instagram"></i></a>
             </li>
             <li>
-                <a class="btn btn-warning btn-floating btn-lg" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fas fa-exclamation"></i></a>
-            </li>
-            <li>
-                <a class="btn btn-primary btn-floating btn-lg" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fas fa-map-location-dot"></i></a>
+                <a href="{{ $link->url_maps }}" class="btn btn-primary btn-floating btn-lg" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fas fa-map-location-dot"></i></a>
             </li>
         </ul>
     </div>

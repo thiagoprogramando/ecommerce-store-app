@@ -70,19 +70,77 @@
                 </form>
                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 mt-3">
                     <div class="card border border-dark mb-3">
-                        <div class="card-header d-flex justify-content-between">Endereço <i class="fas fa-pen mt-2"></i></div>
+                        <div class="card-header d-flex justify-content-between">Endereço <i data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#filterModal" class="fas fa-pen mt-2"></i></div>
                         <div class="card-body">
                           <p class="card-text">
-                            <b>59012-060</b> <br>
-                            Rua Pereira Simões, 47 Natal/RN
+                            {{ Auth::user()->address }}
                           </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+    <form action="{{ route('update-address') }}" method="POST">
+        @csrf
+        <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+        
+        <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="filterModalLabel">Dados do Endereço</h5>
+                        <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="form-outline mb-2" data-mdb-input-init>
+                                    <input type="number" name="postal_code" onblur="consultaCEP()" id="postal_code" class="form-control"/>
+                                    <label class="form-label" for="postal_code">CEP</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                <div class="form-outline mb-2" data-mdb-input-init>
+                                    <input type="text" name="address" id="address" class="form-control"/>
+                                    <label class="form-label" for="address">Logradouro</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="form-outline mb-2" data-mdb-input-init>
+                                    <input type="text" name="city" id="city" class="form-control"/>
+                                    <label class="form-label" for="city">Cidade</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                <div class="form-outline mb-2" data-mdb-input-init>
+                                    <input type="text" name="state" id="state" class="form-control"/>
+                                    <label class="form-label" for="state">Estado</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="form-outline mb-2" data-mdb-input-init>
+                                    <input type="text" name="num" id="num" class="form-control"/>
+                                    <label class="form-label" for="num">Número</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                <div class="form-outline mb-2" data-mdb-input-init>
+                                    <input type="text" name="complement" id="complement" class="form-control"/>
+                                    <label class="form-label" for="complement">Complemento</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-danger" data-mdb-ripple-init data-mdb-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-dark" data-mdb-ripple-init>Atualizar Endereço</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
     
 </section>
 
@@ -90,6 +148,38 @@
     document.getElementById('change-photo-button').addEventListener('click', function() {
         document.getElementById('photo-input').click();
     });
+
+    function consultaCEP() {
+        var cep = $('[name="postal_code"]').val();
+
+        cep = cep.replace(/\D/g, '');
+
+        if (/^\d{8}$/.test(cep)) {
+
+            cep = cep.replace(/(\d{5})(\d{3})/, '$1-$2');
+            $.get(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
+                $('[name="address"]').val(data.logradouro);
+                $('[name="complement"]').val(data.bairro);
+                $('[name="city"]').val(data.localidade);
+                $('[name="state"]').val(data.uf);
+            })
+            .fail(function () {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'CEP não localizado!',
+                    icon: 'error',
+                    timer: 1500
+                })
+            });
+        } else {
+            Swal.fire({
+                title: 'Error!',
+                text: 'CEP inválido!',
+                icon: 'error',
+                timer: 1500
+            })
+        }
+    }
 </script>
 @endsection
 

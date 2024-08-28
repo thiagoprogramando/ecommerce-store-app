@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
@@ -28,7 +29,8 @@ class AppController extends Controller {
         }
 
         return view('index', [
-            'products' => $query->get(),
+            'products'   => $query->get(),
+            'banners'    => Banner::where('license', env('API_KEY'))->get(),
             'categories' => Category::where('license', env('API_KEY'))->orderBy('name', 'asc')->get()
         ]);
     }

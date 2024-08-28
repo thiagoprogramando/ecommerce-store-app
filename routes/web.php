@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
     //User
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/update-address', [UserController::class, 'address'])->name('update-address');
     Route::post('/update-user', [UserController::class, 'updateUser'])->name('update-user');
 
     //Cart

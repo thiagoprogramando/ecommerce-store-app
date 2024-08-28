@@ -27,6 +27,11 @@ class OrderController extends Controller {
             return redirect()->back()->with('error', 'Verique seus dados!');
         }
 
+        if(env('PAYMENT_METHOD') == 'whatsapp') {
+            $token = rand(0, 999) . strtoupper(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))[0] . rand(0, 99) . strtoupper(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))[0] . rand(999, 999999999999);
+            return redirect($this->whatsapp($request->name, $request->value, $token, $request->method, $request->installments));
+        }
+
         if(Auth::user()->customer) {
             $customer = Auth::user()->customer;
         } else {
@@ -61,6 +66,31 @@ class OrderController extends Controller {
         }
 
         return redirect()->back()->with('error', 'Não foi possível finalizar o carrinho!');
+    }
+
+    private function whatsapp($name, $value, $token, $method, $installments) {
+
+        $order                          = new Order();
+        $order->name                    = $name;
+        $order->value                   = $value;
+        $order->payment_token           = $token;
+        $order->payment_method          = $method;
+        $order->payment_installments    = $installments;
+        $order->license                 = env('API_KEY');
+        if($order->save()) {
+
+            Cart::where('customer_id', Auth::user()->id)
+                ->whereNull('token_pay')
+                ->update(['token_pay' => $token]);
+
+            Discount::where('customer_id', Auth::user()->id)
+                ->whereNull('token_pay')
+                ->update(['token_pay' => $token]);
+
+            $message = 'https://wa.me/'.env('PAYMENT_URL').'?text=Olá, acabei de realizar o Pedido *'.$name.'* Gostaria de concluir o pedido!';
+
+            return $message;
+        }
     }
 
     private function createCustomer($name, $cpfcnpj, $mobilePhone, $email) {

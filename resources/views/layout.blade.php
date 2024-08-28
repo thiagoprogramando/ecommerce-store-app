@@ -88,13 +88,13 @@
         <a class="btn btn-floating btn-dark btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true" aria-pressed="false"> <i class="fas fa-filter"></i> </a>
         <ul class="list-unstyled" style="margin-bottom: 80px; transform: translateY(368px);">
             <li>
-                <a href="{{ $link->url_whatsapp }}" class="btn btn-success btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-whatsapp"></i></a>
+                <a href="{{ $link->url_whatsapp ?: '' }}" class="btn btn-success btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-whatsapp"></i></a>
             </li>
             <li>
-                <a href="{{ $link->url_instagram }}" class="btn btn-danger btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-instagram"></i></a>
+                <a href="{{ $link->url_instagram ?: '' }}" class="btn btn-danger btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-instagram"></i></a>
             </li>
             <li>
-                <a href="{{ $link->url_maps }}" class="btn btn-primary btn-floating btn-lg" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fas fa-map-location-dot"></i></a>
+                <a href="{{ $link->url_maps ?: '' }}" class="btn btn-primary btn-floating btn-lg" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fas fa-map-location-dot"></i></a>
             </li>
         </ul>
     </div>

@@ -16,8 +16,7 @@ class ShareServiceProvider extends ServiceProvider {
     public function boot(): void {
         View::composer('*', function ($view) {
             
-            $link = Link::where('license', env('api_key'))->first();
-
+            $link = Link::where('license', env('API_KEY'))->first();
             $view->with('link', $link);
         }); 
     }

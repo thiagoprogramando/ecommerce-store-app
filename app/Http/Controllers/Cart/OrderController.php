@@ -55,12 +55,12 @@ class OrderController extends Controller {
         if($order->save()) {
 
             Cart::where('customer_id', Auth::user()->id)
-                ->whereNull('token_pay')
-                ->update(['token_pay' => $invoice['id']]);
+                ->whereNull('payment_token')
+                ->update(['payment_token' => $invoice['id']]);
 
             Discount::where('customer_id', Auth::user()->id)
-                ->whereNull('token_pay')
-                ->update(['token_pay' => $invoice['id']]);
+                ->whereNull('payment_token')
+                ->update(['payment_token' => $invoice['id']]);
 
             return redirect($invoice['invoiceUrl']);
         }
@@ -80,12 +80,12 @@ class OrderController extends Controller {
         if($order->save()) {
 
             Cart::where('customer_id', Auth::user()->id)
-                ->whereNull('token_pay')
-                ->update(['token_pay' => $token]);
+                ->whereNull('payment_token')
+                ->update(['payment_token' => $token]);
 
             Discount::where('customer_id', Auth::user()->id)
-                ->whereNull('token_pay')
-                ->update(['token_pay' => $token]);
+                ->whereNull('payment_token')
+                ->update(['payment_token' => $token]);
 
             $message = 'https://wa.me/'.env('PAYMENT_URL').'?text=Olá, acabei de realizar o Pedido *'.$name.'* Gostaria de concluir o pedido!';
 

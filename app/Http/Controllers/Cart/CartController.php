@@ -14,9 +14,9 @@ class CartController extends Controller {
     public function cart() {
 
         return view('Cart.cart', [
-            'itens'         => Cart::where('customer_id', Auth::user()->id)->whereNull('token_pay')->get(),
-            'discounts'     => Discount::where('customer_id', Auth::user()->id)->whereNull('token_pay')->get(),
-            'valueProduct'  => Cart::where('customer_id', Auth::user()->id)->where('status', 0)->whereNull('token_pay')->sum('value'),
+            'itens'         => Cart::where('customer_id', Auth::user()->id)->whereNull('payment_token')->get(),
+            'discounts'     => Discount::where('customer_id', Auth::user()->id)->whereNull('payment_token')->get(),
+            'valueProduct'  => Cart::where('customer_id', Auth::user()->id)->where('status', 0)->whereNull('payment_token')->sum('value'),
         ]);
     }
     

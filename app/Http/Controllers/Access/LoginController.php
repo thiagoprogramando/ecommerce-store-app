@@ -15,8 +15,10 @@ class LoginController extends Controller {
 
     public function logon(Request $request) {
 
-        $credentials = $request->only(['email', 'password']);
-        $credentials['password'] = $credentials['password'];
+        $credentials                = $request->only(['email', 'password']);
+        $credentials['password']    = $credentials['password'];
+        $credentials['api_key']     = env('API_KEY');
+
         if (Auth::attempt($credentials)) {
             return redirect()->route('ecommerce')->with('success', 'Bem vindo(a)!');
         } else {

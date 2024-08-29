@@ -7,7 +7,14 @@
         <button type="button" class="btn btn-rounded btn-dark m-1" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#filterModal">Filtros</button>
         <a href="{{ route('shop') }}" class="btn btn-rounded btn-outline-dark m-1" data-mdb-ripple-init data-mdb-ripple-color="dark">Todos</a>
         @foreach ($categories as $category)
-          <a href="{{ route('shop') }}?category={{ $category->id }}" class="btn btn-rounded btn-outline-dark m-1" data-mdb-ripple-init data-mdb-ripple-color="dark">{{ $category->name }}</a>
+            @php
+                $query = request()->query();
+                $query['category'] = $category->id;
+            @endphp
+
+            <a href="{{ route('shop', $query) }}" class="btn btn-rounded @if(request('category') == $category->id) btn-dark @else btn-outline-dark @endif m-1" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                {{ $category->name }}
+            </a>
         @endforeach
       </div>
     </div>
@@ -24,25 +31,25 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-outline mb-2" data-mdb-input-init>
-                    <input type="text" name="search" id="search" class="form-control"/>
+                    <input type="text" name="search" id="search" class="form-control" value="{{ request('search') }}"/>
                     <label class="form-label" for="search">Título, Nome, descrição...</label>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="form-outline mb-2" data-mdb-input-init>
-                    <input type="text" name="min_value" id="min_value" class="form-control"/>
+                    <input type="text" name="min_value" id="min_value" class="form-control" value="{{ request('min_value') }}"/>
                     <label class="form-label" for="min_value">Valor Mínimo</label>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="form-outline mb-2" data-mdb-input-init>
-                    <input type="text" name="max_value" id="max_value" class="form-control"/>
+                    <input type="text" name="max_value" id="max_value" class="form-control" value="{{ request('max_value') }}"/>
                     <label class="form-label" for="max_value">Valor Máximo</label>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-outline mb-2" data-mdb-input-init>
-                    <input type="text" name="ean" id="ean" class="form-control"/>
+                    <input type="text" name="ean" id="ean" class="form-control" value="{{ request('ean') }}"/>
                     <label class="form-label" for="ean">EAN</label>
                   </div>
                 </div>

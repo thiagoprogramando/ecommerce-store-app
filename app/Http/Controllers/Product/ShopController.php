@@ -65,6 +65,9 @@ class ShopController extends Controller {
         $product = product::find($id);
         if($product) {
             
+            $product->views += 1;
+            $product->save();
+            
             return view('Shop.product', [
                 'product' => $product,
                 'images'  => ImageProduct::where('product_id', $product->id)->get()

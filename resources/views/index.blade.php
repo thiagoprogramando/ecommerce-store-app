@@ -26,9 +26,8 @@
     <div class="row">
       <div class="col-sm-12 offset-md-3 col-md-6 offset-lg-3 col-lg-6">
         <form action="{{ route('ecommerce') }}" method="GET">
-          @csrf
           <div class="input-group input-group-lg">
-              <input type="search" name="name" class="form-control" placeholder="Pesquisar produtos"/>
+              <input type="search" name="name" class="form-control" placeholder="Pesquisar produtos" value="{{ request('name') }}"/>
               <button type="submit" class="btn btn-dark"> <i class="fas fa-search"></i> </button>
           </div>
         </form>
@@ -37,7 +36,14 @@
       <div class="col-sm-12 col-md-12 col-lg-12 mt-3 text-center">
         <a href="{{ route('ecommerce') }}#search-product" class="btn btn-rounded btn-outline-dark m-1" data-mdb-ripple-init data-mdb-ripple-color="dark">Todos</a>
         @foreach ($categories as $category)
-          <a href="{{ route('ecommerce') }}?category={{ $category->id }}#search-product" class="btn btn-rounded btn-outline-dark m-1" data-mdb-ripple-init data-mdb-ripple-color="dark">{{ $category->name }}</a>
+            @php
+                $query = request()->query();
+                $query['category'] = $category->id;
+            @endphp
+
+            <a href="{{ route('ecommerce', $query) }}" class="btn btn-rounded @if(request('category') == $category->id) btn-dark @else btn-outline-dark @endif m-1" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                {{ $category->name }}
+            </a>
         @endforeach
       </div>
     </div>
@@ -48,16 +54,19 @@
       @foreach ($products as $product)
         <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
           <div class="card">
-            <img src="{{ $product->getMainImage() }}" class="card-img-top" alt="{{ $product->name }}" style="width: 100%; height: auto; max-height: 200px; object-fit: contain;"/>
+            <img src="{{ $product->getMainImage() }}" class="card-img-top" alt="{{ $product->name }}" style="width: 100%; max-height: 300px !important; min-height: 300px !important; object-fit: coven;"/>
             <div class="card-body">
+              
               <p class="card-text mb-2">{{ $product->name }}</p>
               <h5 class="card-title mb-3">R$ {{ number_format($product->value, 2, ',', '.') }}</h5>
-              <form action="{{ route('add-cart') }}" method="POST" class="text-center">
+              
+              <form action="{{ route('add-cart') }}" method="POST" class="text-center card-footer">
                 @csrf
                 <input type="hidden" value="{{ $product->id }}" name="product_id">
                 <input type="hidden" value="{{ $product->name }}" name="name">
                 <input type="hidden" value="{{ $product->value }}" name="value">
                 <input type="hidden" value="1" name="qtd"/>
+                
                 <button type="submit" class="btn btn-rounded btn-dark w-100 mb-3">ADICIONAR AO CARRINHO</button>
                 <a href="{{ route('product', ['id' => $product->id]) }}" class="text-dark"><b>Mais informações</b></a>
               </form>

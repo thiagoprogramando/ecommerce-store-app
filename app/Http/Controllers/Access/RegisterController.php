@@ -18,7 +18,7 @@ class RegisterController extends Controller {
 
     public function createUser(Request $request) {
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->where('license', env('API_KEY'))->first();
         if($user) {
             return redirect()->route('login')->with('error', 'Já existe um usuário com esse Email!');
         }

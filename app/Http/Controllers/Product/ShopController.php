@@ -20,7 +20,10 @@ class ShopController extends Controller {
                         ->orderBy('name', 'asc');
 
         if (!empty($request->search)) {
-            $query->where('name', 'like', '%' . $request->search . '%')->orWhere('description', 'like', '%' . $request->search . '%');
+            $query->where(function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->search . '%')
+                        ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
         }
 
         if (!empty($request->max_value)) {

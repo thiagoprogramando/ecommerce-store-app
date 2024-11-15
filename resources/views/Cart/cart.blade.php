@@ -24,7 +24,7 @@
                             @foreach ($itens as $item)
                                 <tr>
                                     <th scope="row">{{$item->id }}</th>
-                                    <td>{{ $item->product->name }} <br>
+                                    <td><a href="{{ route('product', ['id' => $item->product->id]) }}">{{ $item->product->name }}</a> <br>
                                         <span class="badge rounded-pill bg-dark">{{ \Illuminate\Support\Str::limit($item->product->description, 40) }}</span>
                                     </td>
                                     <td class="text-center">{{ $item->qtd }}</td>

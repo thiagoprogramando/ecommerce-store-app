@@ -28,6 +28,10 @@ class User extends Authenticatable {
         'created_at'
     ];
 
+    public function firstName() {
+        return explode(' ', trim($this->name))[0];
+    }
+
     protected $hidden = [
         'password',
         'remember_token',

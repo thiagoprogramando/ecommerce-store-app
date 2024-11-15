@@ -32,7 +32,7 @@
                 <div class="col-12">
                   <div class="form-outline mb-2" data-mdb-input-init>
                     <input type="text" name="search" id="search" class="form-control" value="{{ request('search') }}"/>
-                    <label class="form-label" for="search">Título, Nome, descrição...</label>
+                    <label class="form-label" for="search">Título, Descrição...</label>
                   </div>
                 </div>
                 <div class="col-6">

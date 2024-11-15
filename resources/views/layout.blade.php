@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"/>
     <link rel="stylesheet" href="{{ asset('assets/css/mdb.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
 
     <script src="{{ asset('assets/js/sweetalert.js')}}"></script>
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
   </head>
-  <body class="container-md container-lg container-xl container-xxl" style="background-color: #F3F3F3;">
-
+  <body class="container-md container-lg container-xl container-xxl d-flex flex-column min-vh-100" style="background-color: #F3F3F3;">
+    
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
           <div class="container-fluid">
@@ -58,9 +59,9 @@
                 <div class="dropdown">
                   <a data-mdb-dropdown-init class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" aria-expanded="false">
                     @if(Auth::user()->photo)
-                      <img src="{{ asset('storage/' . Auth::user()->photo) }}" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy"/>
+                      <img src="{{ asset('storage/' . Auth::user()->photo) }}" class="rounded-circle" height="25" alt="{{ Auth::user()->name }}" loading="lazy"/> {{ Auth::user()->firstName() }}
                     @else
-                        <img src="{{ asset('assets/img/components/profile.png') }}" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy"/>
+                        <img src="{{ asset('assets/img/components/profile.png') }}" class="rounded-circle" height="25" alt="{{ Auth::user()->name }}" loading="lazy"/> {{ Auth::user()->firstName() }}
                     @endif
                   </a>
                   
@@ -82,19 +83,21 @@
         </nav>
     </header>
 
-    @yield('content')
+    <main class="flex-grow-1">
+      @yield('content')
+    </main>
       
     <div class="fixed-action-btn" id="fixed1" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true" style="height: 80px;">
         <a class="btn btn-floating btn-dark btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true" aria-pressed="false"> <i class="fas fa-filter"></i> </a>
         <ul class="list-unstyled" style="margin-bottom: 80px; transform: translateY(368px);">
             <li>
-                <a href="{{ $link->url_whatsapp ?: '' }}" class="btn btn-success btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-whatsapp"></i></a>
+                <a href="{{ $link->url_whatsapp ?? '' }}" class="btn btn-success btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-whatsapp"></i></a>
             </li>
             <li>
-                <a href="{{ $link->url_instagram ?: '' }}" class="btn btn-danger btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-instagram"></i></a>
+                <a href="{{ $link->url_instagram ?? '' }}" class="btn btn-danger btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-instagram"></i></a>
             </li>
             <li>
-                <a href="{{ $link->url_maps ?: '' }}" class="btn btn-primary btn-floating btn-lg" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fas fa-map-location-dot"></i></a>
+                <a href="{{ $link->url_maps ?? '' }}" class="btn btn-primary btn-floating btn-lg" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fas fa-map-location-dot"></i></a>
             </li>
         </ul>
     </div>

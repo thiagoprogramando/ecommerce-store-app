@@ -16,7 +16,7 @@ class AppController extends Controller {
 
         $view = $this->createView($request->ip());
 
-        $query = Product::orderBy('name', 'asc')->where('license', env('API_KEY'));
+        $query = Product::orderBy('name', 'asc')->where('license', env('API_KEY'))->where('status', 1);
 
         if (!empty($request->name)) {
             $query->where('name', 'like', '%' . $request->name . '%');

@@ -25,6 +25,18 @@ class Order extends Model {
         'license'
     ];
 
+    public function user() {
+        return $this->belongsTo(User::class, 'customer_id');
+    }
+
+    public function discounts() {
+        return $this->hasMany(Discount::class, 'payment_token', 'payment_token');
+    }
+
+    public function carts() {
+        return $this->hasMany(Cart::class, 'payment_token', 'payment_token');
+    }
+
     public function labelStatus(): string {
         $status = [
             0 => 'Pendente',
@@ -35,13 +47,5 @@ class Order extends Model {
         ];
 
         return $status[$this->status] ?? 'Pendente';
-    }
-
-    public function discounts() {
-        return $this->hasMany(Discount::class, 'token_pay', 'payment_token');
-    }
-
-    public function carts() {
-        return $this->hasMany(Cart::class, 'token_pay', 'payment_token');
     }
 }

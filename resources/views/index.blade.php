@@ -52,7 +52,7 @@
   <section class="mt-5 mb-5">
     <div class="row">
       @foreach ($products as $product)
-        <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-3">
           <div class="card">
             <img src="{{ $product->getMainImage() }}" class="card-img-top" alt="{{ $product->name }}" style="width: 100%; max-height: 300px !important; min-height: 300px !important; object-fit: coven;"/>
             <div class="card-body">

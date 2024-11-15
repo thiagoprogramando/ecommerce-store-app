@@ -46,19 +46,23 @@
           @endif
 
           @if(!empty($product->color))
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <div class="fw-bold">Cor</div>
-                <div class="text-muted">{{ $product->color }}</div>
-              </div>
-            </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                      <div class="fw-bold">Cor</div>
+                      <div class="d-flex align-items-center">
+                          <!-- Mostra a cor real com um fundo -->
+                          <div style="width: 20px; height: 20px; background-color: {{ $product->color }};" class="me-2"></div>
+                          <div class="text-muted">{{ $product->color }}</div>
+                      </div>
+                  </div>
+              </li>
           @endif
 
-          @if(!empty($product->unit))
+          @if(!empty($product->ean))
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <div>
-                <div class="fw-bold">Unidade</div>
-                <div class="text-muted">{{ $product->unit }}</div>
+                <div class="fw-bold">EAN</div>
+                <div class="text-muted">{{ $product->ean }}</div>
               </div>
             </li>
           @endif
@@ -66,11 +70,11 @@
       </div>
       <div class="col-6">
         <ul class="list-group list-group-light">
-          @if(!empty($product->ean))
+          @if(!empty($product->unit))
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <div>
-                <div class="fw-bold">EAN</div>
-                <div class="text-muted">{{ $product->ean }}</div>
+                <div class="fw-bold">Unidade</div>
+                <div class="text-muted">{{ $product->unit }}</div>
               </div>
             </li>
           @endif
@@ -82,7 +86,7 @@
                 <div class="text-muted"> 
                   @foreach ($product->categories as $category)
                       @if($category)
-                          <a href="">{{ $category->name }} -</a> 
+                          <a href="">{{ $category->name }}</a>
                       @endif
                   @endforeach
                 </div>

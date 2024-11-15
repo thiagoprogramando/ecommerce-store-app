@@ -27,7 +27,7 @@ class OrderController extends Controller {
             return redirect()->back()->with('error', 'Verique seus dados!');
         }
 
-        if(env('PAYMENT_METHOD') == 'whatsapp') {
+        if(env('PAYMENT_METHOD') == 'WHATSAPP') {
             $token = rand(0, 999) . strtoupper(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))[0] . rand(0, 99) . strtoupper(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))[0] . rand(999, 999999999999);
             return redirect($this->whatsapp($request->name, $request->value, $token, $request->method, $request->installments));
         }
@@ -71,6 +71,7 @@ class OrderController extends Controller {
     private function whatsapp($name, $value, $token, $method, $installments) {
 
         $order                          = new Order();
+        $order->customer_id             = Auth::user()->id;
         $order->name                    = $name;
         $order->value                   = $value;
         $order->payment_token           = $token;

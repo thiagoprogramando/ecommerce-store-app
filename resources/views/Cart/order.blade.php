@@ -22,7 +22,7 @@
                         <tbody>
                             @foreach ($orders as $order)
                                 <tr>
-                                    <td scope="row">{{$order->id }}-{{ $order->name }}</td>
+                                    <td scope="row">{{$order->id }} - {{ $order->name }}</td>
                                     <td>
                                         <small> 
                                             @foreach ($order->carts as $key => $cart)
@@ -33,7 +33,12 @@
                                             @endforeach
                                         </small>
                                     </td>
-                                    <td class="text-center">{{$order->labelStatus() }}</td>
+                                    <td class="text-center">
+                                        {{$order->labelStatus() }} <br>
+                                        @if ($order->tracking_code)
+                                            <span class="badge rounded-pill bg-dark">Código de Rastreamento: {{ $order->tracking_code }}</span>
+                                        @endif 
+                                    </td>
                                     <td><b>R$ {{ number_format($order->value, 2, ',', '.') }}</b><br>
                                         <a href="{{ $order->payment_url }}" target="_blank" class="text-danger">Link de Pagamento</a>
                                     </td>

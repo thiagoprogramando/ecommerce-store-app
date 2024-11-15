@@ -1,10 +1,9 @@
 @extends('layout')
 @section('content')
   <section class="container-fluid">
-    
-    <div class="row bg-light p-5">     
+    <div class="row p-5">     
       <div class="col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 d-flex justify-content-center align-items-center h-100">
-        <div class="tab-content w-75">
+        <div class="tab-content w-100">
           <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
             <form action="{{ route('registrer') }}" method="POST">
               @csrf
@@ -20,14 +19,17 @@
                 <input type="text" name="name" id="name" class="form-control" required/>
                 <label class="form-label" for="name">Nome</label>
               </div>
+
               <div data-mdb-input-init class="form-outline mb-2">
                 <input type="text" name="phone" id="phone" class="form-control" required/>
                 <label class="form-label" for="phone">Whatsapp ou Telefone</label>
               </div>
+
               <div data-mdb-input-init class="form-outline mb-2">
                 <input type="email" name="email" id="email" class="form-control" required/>
                 <label class="form-label" for="email">Email</label>
               </div>
+
               <div data-mdb-input-init class="form-outline mb-2">
                 <input type="password" name="password" id="password" class="form-control" required/>
                 <label class="form-label" for="password">Senha</label>

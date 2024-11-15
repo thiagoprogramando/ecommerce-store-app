@@ -18,13 +18,13 @@ class RegisterController extends Controller {
 
     public function createUser(Request $request) {
 
-        $user = User::where('email', $request->email)->where('license', env('API_KEY'))->first();
+        $user = User::where('email', $request->email)->where('api_key', env('API_KEY'))->first();
         if($user) {
-            return redirect()->route('login')->with('error', 'Já existe um usuário com esse Email!');
+            return redirect()->route('login')->with('info', 'Você tem uma conta! Faça login para ter acesso.');
         }
 
         if($request->term <> 1 && $request->term <> 'on') {
-            return redirect()->back()->with('error', 'É necessário concordar com nosso termos.');
+            return redirect()->back()->with('info', 'É necessário concordar com nosso termos.');
         }
 
         $user = new User();

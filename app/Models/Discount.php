@@ -19,6 +19,10 @@ class Discount extends Model {
         'status'
     ];
 
+    public function user() {
+        return $this->belongsTo(User::class, 'customer_id');
+    }
+
     public function coupon() {
         return $this->belongsTo(Coupon::class, 'coupon_id');
     }

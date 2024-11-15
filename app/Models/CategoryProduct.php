@@ -16,14 +16,6 @@ class CategoryProduct extends Model {
         'category_id'
     ];
 
-    public function productLabel() {
-        return $this->belongsTo(Product::class, 'product_id');
-    }
-
-    public function categoryLabel() {
-        return $this->belongsTo(Category::class, 'category_id');
-    }
-
     public function product() {
         return $this->belongsTo(Product::class, 'product_id');
     }

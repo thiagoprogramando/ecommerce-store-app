@@ -2,15 +2,15 @@
 @section('content')
   <section class="container-fluid">
     
-    <div class="row bg-light p-5">
+    <div class="row p-5">
       <div class="col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 d-flex justify-content-center align-items-center h-100">
-        <div class="tab-content w-75">
+        <div class="tab-content w-100">
           <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
             <form action="{{ route('logon') }}" method="POST">
               @csrf
               
               <div class="text-center mb-3">
-                <h1 class="display-3">Conecte-se</h1>
+                <h1 class="display-3">Acesse</h1>
                 {{-- <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1"> <i class="fab fa-facebook-f"></i> </button>
                 <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1"> <i class="fab fa-google"></i> </button>
                 <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1"> <i class="fab fa-github"></i> </button> --}}

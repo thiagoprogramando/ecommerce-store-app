@@ -29,6 +29,14 @@ class Product extends Model {
         'license'
     ];
 
+    public function images() {
+        return $this->hasMany(ImageProduct::class, 'product_id');
+    }
+
+    public function categories() {
+        return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id');
+    }
+
     public function labelType(): string {
         $types = [
             0 => 'Físico',
@@ -49,18 +57,10 @@ class Product extends Model {
 
         return $statuses[$this->status] ?? 'Pendente';
     }
-    
-    public function categories() {
-        return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id');
-    }
-
-    public function images() {
-        return $this->hasMany(ImageProduct::class, 'product_id');
-    }
 
     public function getMainImage(): string {
-        $image = $this->images()->first();
 
+        $image = $this->images()->first();
         if ($image) {
             return env('APP_URL_SERVER').'storage/products/images/'.$image->file;
         }
@@ -69,8 +69,6 @@ class Product extends Model {
     }
 
     public function relatedProducts() {
-        return self::where('id', $this->group)
-            ->orWhere('group', $this->id)
-            ->get();
+        return self::where('id', $this->group)->orWhere('group', $this->id)->get();
     }
 }

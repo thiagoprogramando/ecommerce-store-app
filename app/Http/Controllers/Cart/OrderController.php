@@ -24,7 +24,7 @@ class OrderController extends Controller {
     public function createOrder(Request $request) {
 
         if(empty(Auth::user()->name) || empty(Auth::user()->cpfcnpj) || empty(Auth::user()->email) || empty(Auth::user()->phone)) {
-            return redirect()->back()->with('error', 'Verique seus dados!');
+            return redirect()->route('profile')->with('error', 'Verique seus dados!');
         }
 
         if(env('PAYMENT_METHOD') == 'WHATSAPP') {

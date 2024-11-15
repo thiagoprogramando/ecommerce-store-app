@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
 
     <title>{{ env('APP_NAME') }} - {{ env('APP_DESCRIPTION') }}</title>
-    <link rel="icon" href="{{ asset('assets/img/logo.png') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ asset('assets/img/icon.png') }}" type="image/x-icon"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"/>
@@ -87,55 +87,56 @@
       @yield('content')
     </main>
       
-    <div class="fixed-action-btn" id="fixed1" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true" style="height: 80px;">
-        <a class="btn btn-floating btn-dark btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true" aria-pressed="false"> <i class="fas fa-filter"></i> </a>
-        <ul class="list-unstyled" style="margin-bottom: 80px; transform: translateY(368px);">
-            <li>
-                <a href="{{ $link->url_whatsapp ?? '' }}" class="btn btn-success btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-whatsapp"></i></a>
-            </li>
-            <li>
-                <a href="{{ $link->url_instagram ?? '' }}" class="btn btn-danger btn-floating btn-lg text-white" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fab fa-instagram"></i></a>
-            </li>
-            <li>
-                <a href="{{ $link->url_maps ?? '' }}" class="btn btn-primary btn-floating btn-lg" data-mdb-button-init="" data-mdb-ripple-init="" data-mdb-button-initialized="true"><i class="fas fa-map-location-dot"></i></a>
-            </li>
-        </ul>
-    </div>
+    @if(!empty($link->url_whatsapp))
+      <div class="whatsapp-btn" id="whatsappBtn">
+        <a href="{{ $link->url_whatsapp ?: '' }}" target="_blank"><i class="fab fa-whatsapp text-white"></i></a>
+      </div>
+    @endif
 
-    <footer class="text-center text-lg-start bg-body-tertiary text-muted border-top border-3 mt-5">
-        {{-- <section class="p-5">
-            <div class="container text-center text-md-start mt-5">
-                <div class="row mt-3">
-                
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            <i class="fas fa-robot me-3"></i>{{ env('APP_NAME') }}
-                        </h6>
-                        <p>
-                            {{ env('APP_DESCRIPTION') }}
-                        </p>
-                    </div>
-
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4"> Atalhos </h6>
-                        <p> <a href="#!" class="text-reset">Trabalhe conosco</a> </p>
-                        <p> <a href="#!" class="text-reset">FAQ</a> </p>
-                        <p> <a href="#!" class="text-reset">Produtos</a> </p>
-                    </div>
-
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">Contato & endereço</h6>
-                        <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
-                        <p> <i class="fas fa-envelope me-3"></i> info@example.com </p>
-                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
+    <footer class="text-center text-lg-start bg-dark text-muted border-top border-3 mt-5">
+      <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+       
+        <div class="me-5 d-none d-lg-block">
+          <span class="text-white">{{ env('APP_NAME') }}</span>
+        </div>
+  
+        <div>
+          @if(!empty($link->url_whatsapp))
+            <a href="{{ $link->url_whatsapp }}" class="me-4 text-white">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          @endif
+          @if(!empty($link->url_facebook))
+            <a href="{{ $link->url_facebook }}" class="me-4 text-white">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          @endif
+          @if(!empty($link->url_instagram))
+            <a href="{{ $link->url_instagram }}" class="me-4 text-white">
+              <i class="fab fa-instagram"></i>
+            </a>
+          @endif
+          @if(!empty($link->url_linkedin))
+            <a href="{{ $link->url_linkedin }}" class="me-4 text-white">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          @endif
+          @if(!empty($link->url_github))
+            <a href="{{ $link->url_github }}" class="me-4 text-white">
+              <i class="fab fa-github"></i>
+            </a>
+          @endif
+          @if(!empty($link->url_maps))
+            <a href="{{ $link->url_maps }}" class="me-4 text-white">
+              <i class="fas fa-map-location-dot"></i>
+            </a>
+          @endif
+        </div>
+      </section>
   
       <div class="bg-dark text-center text-white p-4">
-        © {{ date('Y') }} Copyright: <a class="text-reset fw-bold" href="{{ env('APP_URL') }}">{{ env('APP_NAME') }}</a>
+        © {{ date('Y') }} Copyright: <a class="text-reset fw-bold" href="{{ env('APP_URL') }}">{{ env('APP_NAME') }}</a> <br>
+         <a href="https://expressoftwareclub.com/" class="text-white">Desenvolvido por Express Software Club</a>
       </div>
     </footer>
 
